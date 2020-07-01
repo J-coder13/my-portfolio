@@ -16,8 +16,13 @@
     max-width: 100%;
     height: auto;
 }
+
 #img-container{
     display: block;
     text-align: center;
     object-fit: cover;
+}
+
+#center{
+    text-align: center;
 }

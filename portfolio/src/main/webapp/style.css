@@ -27,3 +27,7 @@
 .center{
   text-align: center;
 }
+
+#secret-button{
+    display: none;
+}

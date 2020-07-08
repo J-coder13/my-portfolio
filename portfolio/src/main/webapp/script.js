@@ -27,9 +27,9 @@ function addRandomGreeting() {
   greetingContainer.innerText = greeting;
 }
 
-//Generates a number between 1 and 200
-function randomNumber() {
-    return Math.floor((Math.random()*200)+1);
+//Generates a number with y being the floor and x being the ceiling
+function randomNumber( x, y) {
+    return Math.floor((Math.random()*x)+y);
 }
 
 /*
@@ -38,13 +38,13 @@ function randomNumber() {
  */
 function secretPage(){
   //Generates a number between 1 and 200 for both numbers.
-  var a = randomNumber();
-  var b = randomNumber();
+  let a = randomNumber(200,1);
+  let b = randomNumber(200,1);
 
 
   //If b is a greater number we flip the values
-  if(b > a){
-    var hold = b;
+  if (b > a) {
+    let hold = b;
     b = a;
     a = hold;
   }
@@ -53,7 +53,7 @@ function secretPage(){
   let isCorrect = false;
   
   //Generates which equation option we choose;
-  let choice = Math.floor((Math.random()*4));
+  let choice = randomNumber(4, 0);
   
   let input = 0;
   let answer = 0;
@@ -62,25 +62,25 @@ function secretPage(){
   switch(choice) {
       case 0:
         answer = a + b;
-        input = prompt(a +' + ' + b + '?',0);
+        input = prompt(a + ' + ' + b + '?', 0);
         isCorrect = input == answer;
         break;
     
       case 1:     
         answer = a - b;
-        input = prompt(a +' - ' + b + '?',0);
+        input = prompt(a + ' - ' + b + '?', 0);
         isCorrect = input == answer;
         break;
     
       case 2:
         answer = a * b;
-        input = prompt(a +' * ' + b + '?',0);
+        input = prompt(a + ' * ' + b + '?', 0);
         isCorrect = input == answer;
         break;
     
       case 3:
         answer = Math.round(a / b );
-        input = prompt(a +' / ' + b + '? Rounded to the nearest Integer',0);
+        input = prompt(a + ' / ' + b + '? Rounded to the nearest Integer', 0);
         isCorrect = input == answer;
         break;
 
@@ -89,11 +89,11 @@ function secretPage(){
     }
    
     //The button to access the secret page is hidden until the user enters a correct answer 
-    let secret = document.getElementById('secret-button');
-    if(isCorrect){
+    const secret = document.getElementById('secret-button');
+    if (isCorrect) {
         alert('Congratulations, You have passed the test! Now click the button at the bottom to see my hidden talent');
         secret.style.display = 'block';
-    }else{
+    } else {
         alert("Sorry that's an incorrect answer. Better luck next time!");
     }
 
@@ -101,8 +101,8 @@ function secretPage(){
 
 //
 function getData() {
-  fetch('/data').then(response => response.text()).then((quote) => {
-    document.getElementById('data-container').innerText = quote;
+  fetch('/data').then(response => response.text()).then((data) => {
+    document.getElementById('data-container').innerText = data;
   });
 }
 

@@ -20,7 +20,7 @@
 
 .img{
   width: 75%;
-  height: auto;
+  min-height: 50%;
   object-fit: cover;
 }
 

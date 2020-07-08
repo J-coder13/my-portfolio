@@ -99,3 +99,10 @@ function secretPage(){
 
 }
 
+//
+function getData() {
+  fetch('/data').then(response => response.text()).then((quote) => {
+    document.getElementById('data-container').innerText = quote;
+  });
+}
+

@@ -14,6 +14,7 @@
 
 package com.google.sps.servlets;
 
+import java.util.ArrayList;
 import java.io.IOException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -26,7 +27,15 @@ public class DataServlet extends HttpServlet {
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    //Makes array list forn step 3 example
+    ArrayList<String> list = new ArrayList<>();
+    list.add("This is test 1");
+    list.add("This is test 2");
+    list.add("This is test 3");
+    
     response.setContentType("text/html;");
-    response.getWriter().println("<h1>Hello Jaden!</h1>");
+    response.getWriter().println(list);
   }
 }
+
+

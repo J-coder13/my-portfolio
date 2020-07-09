@@ -38,13 +38,13 @@ function randomNumber( x, y) {
  */
 function secretPage(){
   //Generates a number between 1 and 200 for both numbers.
-  let a = randomNumber(200,1);
-  let b = randomNumber(200,1);
+  let a = randomNumber(200, 1);
+  let b = randomNumber(200, 1);
 
 
   //If b is a greater number we flip the values
   if (b > a) {
-    let hold = b;
+    const hold = b;
     b = a;
     a = hold;
   }
@@ -53,7 +53,7 @@ function secretPage(){
   let isCorrect = false;
   
   //Generates which equation option we choose;
-  let choice = randomNumber(4, 0);
+  const choice = randomNumber(4, 0);
   
   let input = 0;
   let answer = 0;

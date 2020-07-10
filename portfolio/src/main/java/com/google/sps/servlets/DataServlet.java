@@ -15,6 +15,7 @@
 package com.google.sps.servlets;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.io.IOException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -25,16 +26,28 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
 
+  ArrayList<String> list = new ArrayList<>();    
+
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    //Makes array list forn step 3 example
-    ArrayList<String> list = new ArrayList<>();
-    list.add("This is test 1");
-    list.add("This is test 2");
-    list.add("This is test 3");
-    
     response.setContentType("text/html;");
     response.getWriter().println(list);
+  }
+  
+  //Uses getParmeter function to obtain user input and inserts that input into 
+  @Override
+  public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    String text = getParameter(request, "text-input", "");
+    list.add(text);
+    response.sendRedirect("/index.html");
+  }
+  //Obtains user input and returns the value of that input. If nothing is entered a blank space is returned
+  public String getParameter(HttpServletRequest request, String name, String defaultValue) {
+    String value = request.getParameter(name);
+    if (value == null) {
+      return defaultValue;
+    }
+    return value;
   }
 }
 

@@ -41,7 +41,11 @@ public class DataServlet extends HttpServlet {
     list.add(text);
     response.sendRedirect("/index.html");
   }
-  //Obtains user input and returns the value of that input. If nothing is entered a blank space is returned
+  /**
+   * Obtains user input and returns the value of that input.
+   * 
+   * @returns The value of the input, or defaultValue if name does not exist.
+   */
   public String getParameter(HttpServletRequest request, String name, String defaultValue) {
     String value = request.getParameter(name);
     if (value == null) {
@@ -50,5 +54,4 @@ public class DataServlet extends HttpServlet {
     return value;
   }
 }
-
 

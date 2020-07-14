@@ -8,7 +8,7 @@
   margin-top: 20px;
 }
 
-.img-format{
+.img-format {
   display: block;
   text-align: center;
   margin-left: auto;       
@@ -18,20 +18,29 @@
   object-fit: cover;
 }
 
-.img{
+.img {
   width: 75%;
   min-height: 50%;
   object-fit: cover;
 }
 
-.center{
+.center {
   text-align: center;
 }
 
-#secret-button{
+#secret-button {
   display: none;
 }
 
-#data-container{
-  display: block;
+#comment-container {
+  list-style-type: none;
 }
+
+.comment {
+  border: thin solid black;
+  display: block;
+  margin: 10px;
+  padding: 10px;
+  min-width: 200px;
+}
+

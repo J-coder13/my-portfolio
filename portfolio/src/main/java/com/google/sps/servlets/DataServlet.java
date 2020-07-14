@@ -13,9 +13,21 @@
 // limitations under the License.
 
 package com.google.sps.servlets;
-
+ 
+import java.util.List;
+import com.google.gson.Gson;
+import com.google.sps.data.Comment;
+import java.sql.Timestamp;
+import java.util.Date;
+import com.google.appengine.api.datastore.DatastoreService;
+import com.google.appengine.api.datastore.DatastoreServiceFactory;
+import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.api.datastore.PreparedQuery;
+import com.google.appengine.api.datastore.Query;
+import com.google.appengine.api.datastore.Query.SortDirection;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.io.IOException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -26,22 +38,58 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
 
-  ArrayList<String> list = new ArrayList<>();    
+  String commentsJson = new String();
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    response.setContentType("text/html;");
-    response.getWriter().println(list);
+    Query query = new Query("Comment").addSort("timestamp", SortDirection.DESCENDING);
+    
+    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+    PreparedQuery results = datastore.prepare(query);
+    
+    //Builds list of Comment Objects
+    List<Comment> comments = new ArrayList<>();
+    for (Entity entity : results.asIterable()) {
+      long id = entity.getKey().getId();
+      String name = (String) entity.getProperty("name");
+      long timestamp = (long) entity.getProperty("timestamp");
+      String textInput = (String) entity.getProperty("comments");
+      
+      Comment c = new Comment(id, name, textInput, timestamp);
+      comments.add(c);
+    }
+    //converts comments list to JSON
+    Gson gson = new Gson();
+    commentsJson = gson.toJson(comments);
+    System.out.println(commentsJson);
+
+    response.setContentType("application/json");
+    response.getWriter().println(commentsJson);
   }
   
-  //Uses getParmeter function to obtain user input and inserts that input into 
+  //Uses getParmeter function to obtain user input and inserts that input into  Entity for storage.
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    String name = getParameter(request, "name","");
     String text = getParameter(request, "text-input", "");
-    list.add(text);
+    long timestamp = System.currentTimeMillis();
+
+    Entity taskEntity = new Entity("Comment");
+    taskEntity.setProperty("name", name);
+    taskEntity.setProperty("comments",text);
+    taskEntity.setProperty("timestamp",timestamp);
+
+    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();    
+    
+    datastore.put(taskEntity);
+    
     response.sendRedirect("/index.html");
   }
-  //Obtains user input and returns the value of that input. If nothing is entered a blank space is returned
+  /**
+   * Obtains user input and returns the value of that input.
+   * 
+   * @returns The value of the input, or defaultValue if name does not exist.
+   */
   public String getParameter(HttpServletRequest request, String name, String defaultValue) {
     String value = request.getParameter(name);
     if (value == null) {

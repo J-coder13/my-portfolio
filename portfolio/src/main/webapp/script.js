@@ -99,10 +99,30 @@ function secretPage(){
 
 }
 
-//
-function getData() {
-  fetch('/data').then(response => response.text()).then((data) => {
-    document.getElementById('data-container').innerText = data;
+
+function loadComment() {
+  fetch('/data').then(response => response.json()).then((comments) => {
+    const taskListElement = document.getElementById('comment-container');
+    comments.forEach((comment) => {
+      taskListElement.appendChild(createComment(comment));
+    });
   });
+}
+
+function createComment(comment) {
+    
+  const commentElement = document.createElement('li');
+  commentElement.className = 'comment';
+
+  const readbleText = document.createElement('p');
+  readbleText.innerText = comment.comment; 
+
+  const nameElement = document.createElement('h3');
+  nameElement.innerText = comment.name;
+
+  commentElement.appendChild(nameElement);
+  commentElement.appendChild(readbleText);
+
+  return commentElement;
 }
 

@@ -10,7 +10,7 @@
 
   </head>
 
-  <body>
+  <body onload="loadComment()">
     <div id="content">
       
       <div class="center">
@@ -22,10 +22,8 @@
       <br>
 
       <h2>Data</h2>
-        <button onclick='getData()'>Click for message</button>
         <div id="data-container"></div>
         
-
       <h2>About me</h2>
         <p>I am a rising sophmore CyberSecurity major attending Hampton university.
         I am an active member of the NROTC program and NSBE program.
@@ -51,9 +49,17 @@
       
       <h2>Comments</h2>
         <form action="/data" method="POST">
-            <p>Insert comments below:</p>
-            <input type="text" name="text">
+          <p>Insert comments below:</p>
+          <p>Name:<p>
+            <input type="text" name="name">
+            <br>
+          <p>Comment:<p>
+            <input type="text" name="text-input">
+          <input type="Submit">
         </form>
+        
+        <br>
+        <ul id="comment-container"></ul>
     </div>
     
   </body>

@@ -59,8 +59,7 @@ public class DataServlet extends HttpServlet {
       comments.add(c);
     }
     //converts comments list to JSON
-    Gson gson = new Gson();
-    commentsJson = gson.toJson(comments);
+    commentsJson = new Gson().toJson(comments);
     System.out.println(commentsJson);
 
     response.setContentType("application/json");
@@ -98,4 +97,3 @@ public class DataServlet extends HttpServlet {
     return value;
   }
 }
-

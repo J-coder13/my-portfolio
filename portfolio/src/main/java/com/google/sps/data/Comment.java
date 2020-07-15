@@ -31,6 +31,7 @@ public final class Comment{
     this.timestamp = timestamp;
   }
 
+/** @returns gregorian calander date and time (UTC) of comment.*/
   public String date() { 
     Date date = new Date(timestamp);
     return date.toString();

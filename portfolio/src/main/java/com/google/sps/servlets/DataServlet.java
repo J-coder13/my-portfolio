@@ -38,10 +38,9 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
 
-  String commentsJson = new String();
-
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    String commentsJson = new String();
     Query query = new Query("Comment").addSort("timestamp", SortDirection.DESCENDING);
     
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
@@ -59,8 +58,7 @@ public class DataServlet extends HttpServlet {
       comments.add(c);
     }
     //converts comments list to JSON
-    Gson gson = new Gson();
-    commentsJson = gson.toJson(comments);
+    commentsJson = new Gson().toJson(comments);
     System.out.println(commentsJson);
 
     response.setContentType("application/json");
